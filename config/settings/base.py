@@ -32,7 +32,10 @@ BASE_APPS = [
     "django.contrib.staticfiles",
 ]
 
-PROJECT_APPS = []
+PROJECT_APPS = [
+    "apps.users",
+    "apps.utils",
+]
 
 THIRD_APPS = [
     "rest_framework",
@@ -40,6 +43,8 @@ THIRD_APPS = [
 ]
 
 INSTALLED_APPS = BASE_APPS + PROJECT_APPS + THIRD_APPS
+
+AUTH_USER_MODEL = "users.User"
 
 ROOT_URLCONF = "config.urls"
 
@@ -85,7 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTH_USER_MODEL = "users.User"
 
 LANGUAGE_CODE = "en-us"
 
