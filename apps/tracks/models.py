@@ -17,18 +17,17 @@ class Track(BaseModel):
         related_name="tracks",
         on_delete=models.CASCADE,
     )
-    artist_id = models.ForeignKey(
-        Artist,
-        related_name="tracks",
-        on_delete=models.CASCADE,
-    )
-    duration = models.DurationField()
+    artists = models.ManyToManyField(Artist)
     audio_file = models.FileField(upload_to="tracks/")
-    genres = models.ManyToManyField(Genre, related_name="tracks")
-    is_explicit_content = models.BooleanField(default=False)
     track = models.PositiveIntegerField()
+    duration = models.DurationField()
+    genres = models.ManyToManyField(Genre, related_name="tracks")
+    comment = models.TextField(blank=True)
+    release_date = models.DateField(help_text="Release Date (Only Track)")
     rating = models.PositiveIntegerField(default=0)
     likes = models.PositiveIntegerField(default=0)
+    is_explicit = models.BooleanField(default=False)
+
     # composer
     # play_count
 

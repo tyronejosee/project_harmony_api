@@ -11,25 +11,51 @@ class Album(BaseModel):
     """Model definition for Album."""
 
     title = models.CharField(max_length=100)
-    Album_artist_id = models.ForeignKey(
+    album_artist_id = models.ForeignKey(
         Artist,
         related_name="albums",
         on_delete=models.CASCADE,
     )
-    purchase_date = models.DateField()
     cover = models.ImageField(
         upload_to="albums/covers/",
         # TODO: Add validators
     )
+    description = models.TextField(blank=True)
+    year = models.DateField()
+    release_date = models.DateField()
     media_type = models.CharField(
         max_length=15,
         choices=MediaTypeChoices.choices,
-        default=MediaTypeChoices.ALBUM,
     )
-    xid = models.CharField(max_length=100, unique=True)
+    upc = models.CharField(
+        max_length=12,
+        unique=True,
+        blank=True,
+        help_text="Universal Product Code",
+    )
+    isrc = models.CharField(
+        max_length=12,
+        unique=True,
+        blank=True,
+        help_text="International Standard Recording Code",
+    )
+    total_duration = models.DurationField()
+    total_tracks = models.PositiveIntegerField()
+    total_dics = models.PositiveIntegerField()
+    # record_label = models.ForeignKey(
+    #     RecordLabel,
+    #     related_name="albums",
+    #     on_delete=models.SET_NULL,
+    #     null=True,
+    #     blank=True
+    # )
+    copyright = models.CharField(max_length=200, blank=True)
+    external_urls = models.JSONField(default=dict, blank=True)
+    is_featured = models.BooleanField(default=False)
+    is_explicit = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         ordering = ["title"]

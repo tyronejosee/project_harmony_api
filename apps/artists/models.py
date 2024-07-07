@@ -8,7 +8,7 @@ class Artist(BaseModel):
 
     name = models.CharField(max_length=255)
     bio = models.TextField(blank=True, null=True)
-    image = models.ImageField(
+    profile = models.ImageField(
         upload_to="artists/images/",
         blank=True,
         null=True,
