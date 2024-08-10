@@ -21,15 +21,13 @@ class Track(BaseModel):
     audio_file = models.FileField(upload_to="tracks/")
     track = models.PositiveIntegerField()
     duration = models.DurationField()
-    genres = models.ManyToManyField(Genre, related_name="tracks")
+    genre = models.ForeignKey(Genre, on_delete=models.PROTECT)
     comment = models.TextField(blank=True)
     release_date = models.DateField(help_text="Release Date (Only Track)")
     rating = models.PositiveIntegerField(default=0)
     likes = models.PositiveIntegerField(default=0)
     is_explicit = models.BooleanField(default=False)
-
     # composer
-    # play_count
 
     def __str__(self):
         return str(self.title)

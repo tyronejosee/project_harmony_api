@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from apps.utils.models import BaseModel
 from .managers import UserManager
-from .choices import RoleChoices
+from .choices import GenderChoices, RoleChoices
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
@@ -17,11 +17,18 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     image = models.ImageField(upload_to="users/", blank=True)
     country = models.CharField(max_length=100, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
+    gender = models.CharField(
+        max_length=6,
+        choices=GenderChoices.choices,
+        blank=True,
+    )
     role = models.CharField(
         max_length=25,
         choices=RoleChoices.choices,
         default=RoleChoices.USER,
     )
+    # country_id = models.ForeignKey(Country, on_delete=models.PROTECT)
+    # TODO: Add Country model
     is_active = models.BooleanField(default=True)
     is_premium = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

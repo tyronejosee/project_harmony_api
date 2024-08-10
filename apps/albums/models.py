@@ -27,32 +27,10 @@ class Album(BaseModel):
         max_length=15,
         choices=MediaTypeChoices.choices,
     )
-    upc = models.CharField(
-        max_length=12,
-        unique=True,
-        blank=True,
-        help_text="Universal Product Code",
-    )
-    isrc = models.CharField(
-        max_length=12,
-        unique=True,
-        blank=True,
-        help_text="International Standard Recording Code",
-    )
     total_duration = models.DurationField()
     total_tracks = models.PositiveIntegerField()
     total_dics = models.PositiveIntegerField()
-    # record_label = models.ForeignKey(
-    #     RecordLabel,
-    #     related_name="albums",
-    #     on_delete=models.SET_NULL,
-    #     null=True,
-    #     blank=True
-    # )
-    copyright = models.CharField(max_length=200, blank=True)
-    external_urls = models.JSONField(default=dict, blank=True)
-    is_featured = models.BooleanField(default=False)
-    is_explicit = models.BooleanField(default=False)
+    rights = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return str(self.title)
